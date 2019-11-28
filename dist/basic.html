@@ -1,0 +1,28 @@
+ <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>MatterCloud SDK Example</title>
+    <base href="/"/>
+    <script src="mattercloud.min.js"></script>
+    <script language="javascript">
+      // On ready taken from https://stackoverflow.com/a/7053197
+      function r(f){/in/.test(document.readyState)?setTimeout(r,9,f):f()}
+      r(async () => {
+        // When content loaded in page on ready, then run this code....
+        var result = await mattercloud.utxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
+        console.log('result', result);
+        document.getElementById('results').innerHTML = JSON.stringify(result);
+      });
+    </script>
+  </head>
+  <body>
+    <a href="https://www.mattercloud.net">MatterCloud</a>
+    <a href="https://www.github.com/MatterCloud/mattercloud-sdk">Github</a>
+    <p>
+      UTXO query result:
+    </p>
+    <div id="results" style="word-break: break-word"></div>
+  </body>
+</html>
