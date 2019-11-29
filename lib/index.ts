@@ -7,10 +7,18 @@ const defaultOptions: any = {
   api_key: ''               // Set to your API key
 }
 
-export default class MatterCloud {
+export class MatterCloud {
   options;
   constructor(providedOptions?: any) {
     this.options = Object.assign({}, defaultOptions, providedOptions);
+  }
+
+  setApiKey(key: string) {
+    this.options = Object.assign({}, this.options, { api_key: key });
+  }
+
+  setOptions(newOptions) {
+    this.options = Object.assign({}, this.options, newOptions);
   }
 
   utxos(addrs: string, args: { offset?: number, limit?: number, afterHeight?: number, sort?: string}, callback?: Function): Promise<any> {
@@ -40,10 +48,15 @@ export default class MatterCloud {
     const apiClient = new APIClient(this.options);
     return apiClient.sendRawTx(rawtx, callback);
   }
+
+  static instance(newOptions?: any): MatterCloud {
+    const mergedOptions = Object.assign({}, defaultOptions, newOptions);
+    return new MatterCloud(mergedOptions);
+  }
 }
 
-export function instance(options?: any): MatterCloud {
-  const mergedOptions = Object.assign({}, defaultOptions, options);
+export function instance(newOptions?: any): MatterCloud {
+  const mergedOptions = Object.assign({}, defaultOptions, newOptions);
   return new MatterCloud(mergedOptions);
 }
 

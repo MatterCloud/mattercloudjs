@@ -1,19 +1,42 @@
 # MatterCloud Javascript Library
-> Bitcoin and Metanet API for Developers
+> Bitcoin SV and Metanet API for Developers
 > [MatterCloud.net](https://www.MatterCloud.net)
+
+*Replaces [BitIndex SDK](https://github.com/bitindex/bitindex-sdk)*
 
 ![header](header.png)
 
-[Developer Documentation](https://developers.mattercloud.net)
+[View Detailed Developer Documentation](https://developers.mattercloud.net)
 
 ---
-##  Preview
 
-Easily query balances, utxos, and transactions.
+## Quick Start
 
-Examples:
+**Installation**
+```sh
+npm install mattercloudjs --save
+```
 
-##### Get balance
+**Include**
+```javascript
+// NodeJS
+var options = {
+    api_key: "your api key",
+}
+var mattercloud = require('mattercloudjs').instance(options);
+
+```
+
+##  Preview Examples
+
+Easily query balances, utxos, and transactions on the Bitcoin SV Blockchain.
+
+#### Get balance
+
+```javascript
+var result = await mattercloud.balance('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
+```
+
 GET https://api.mattercloud.net/api/v3/main/address/12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX/balance
 
 Response:
@@ -24,8 +47,13 @@ Response:
   "unconfirmed": 0
 }
 ```
-##### Get utxos
-GET https://api.mattercloud.net/api/v3/main/address/12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX/utxos
+#### Get utxos
+
+```javascript
+var result = await mattercloud.utxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
+```
+
+GET https://api.mattercloud.net/api/v3/main/address/12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX/utxo
 
 Response:
 ```
@@ -58,9 +86,15 @@ Response:
   }
 ]
 ```
-##### Broadcast Transaction
+#### Broadcast Transaction
+```javascript
+var result = await mattercloud.sendRawTx('0100000001c8a78a...');
+```
+
 POST https://api.mattercloud.net/api/v3/main/tx/send
+
 `Content-Type: application/json`
+
 Request Body:
 ```
 {
@@ -74,7 +108,7 @@ Response:
 }
 ```
 
-## Installation and Usage
+## Detailed Installation and Usage
 
 **Installation**
 ```sh
@@ -84,14 +118,19 @@ npm install mattercloudjs --save
 **Include**
 ```javascript
 // Node
-var matter = require('mattercloudjs').instance();
+var options = {
+    api_key: "your api key",
+}
+var mattercloud = require('mattercloudjs').instance(options);
+
 ```
 
 ```html
 <!-- Browser -->
 <script src="dist/mattercloud.min.js"></script>
 <script language="javascript">
-    var result = await mattercloud.getUtxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
+    // mattercloud.setApiKey('my key');
+    var result = await mattercloud.utxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
     console.log('result', result);
 </script>
 ```
@@ -111,10 +150,10 @@ Example:
 ```javascript
 
 // Await style with promises
-var result = await mattercloud.getUtxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
+var result = await mattercloud.utxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
 
 // Callback style
-mattercloud.getUtxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', function(result) {
+mattercloud.utxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', function(result) {
     // ...
 });
 
@@ -139,7 +178,9 @@ npm run test
  ## Any questions or ideas?
 
  We would love to hear from you!
+
  https://www.mattercloud.net
+
  https://twitter.com/MatterCloud
 
 

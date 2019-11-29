@@ -11,6 +11,7 @@
       function r(f){/in/.test(document.readyState)?setTimeout(r,9,f):f()}
       r(async () => {
         // When content loaded in page on ready, then run this code....
+        mattercloud.setApiKey('my key');
         var result = await mattercloud.utxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
         console.log('result', result);
         document.getElementById('results').innerHTML = JSON.stringify(result);

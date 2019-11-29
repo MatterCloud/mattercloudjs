@@ -11,6 +11,12 @@ class MatterCloud {
     constructor(providedOptions) {
         this.options = Object.assign({}, defaultOptions, providedOptions);
     }
+    setApiKey(key) {
+        this.options = Object.assign({}, this.options, { api_key: key });
+    }
+    setOptions(newOptions) {
+        this.options = Object.assign({}, this.options, newOptions);
+    }
     utxos(addrs, args, callback) {
         const apiClient = new api_client_1.APIClient(this.options);
         return apiClient.addresses_getUtxos(Object.assign({ addrs }, args), callback);
@@ -31,10 +37,14 @@ class MatterCloud {
         const apiClient = new api_client_1.APIClient(this.options);
         return apiClient.sendRawTx(rawtx, callback);
     }
+    static instance(newOptions) {
+        const mergedOptions = Object.assign({}, defaultOptions, newOptions);
+        return new MatterCloud(mergedOptions);
+    }
 }
-exports.default = MatterCloud;
-function instance(options) {
-    const mergedOptions = Object.assign({}, defaultOptions, options);
+exports.MatterCloud = MatterCloud;
+function instance(newOptions) {
+    const mergedOptions = Object.assign({}, defaultOptions, newOptions);
     return new MatterCloud(mergedOptions);
 }
 exports.instance = instance;
