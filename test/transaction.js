@@ -7,17 +7,20 @@ const options = {
    api_url: 'https://api.mattercloud.net',
 };
 
-describe('#tx.get', () => {
-    it('should fail with invalid address', async () => {
-        var result = await index.instance(options).getTx('tx');
-        expect(result).to.eql({
-            code: 500,
-            message: 'Request failed with status code 500'
-        });
+describe('#tx', () => {
+    it('should fail with invalid tx', async () => {
+        try {
+            await index.instance(options).tx('tx');
+         } catch (ex) {
+               expect(ex).to.eql({
+                  code: 404,
+                  message: 'Request failed with status code 404'
+               });
+         }
     });
 
     it('should succeed', async () => {
-         var result = await index.instance(options).getTx('96b3dc5941ce97046d4af6e7a69f4b38c48f05ef071c2a33f88807b89ab51da6');
+         var result = await index.instance(options).tx('96b3dc5941ce97046d4af6e7a69f4b38c48f05ef071c2a33f88807b89ab51da6');
          delete result.confirmations;
          expect(result).to.eql(
             {
@@ -86,9 +89,13 @@ describe('#tx.get', () => {
     });
 });
 
-describe('#tx.send', () => {
-   it('should fail with invalid address', async () => {
-       var result = await index.instance(options).sendRawTx('0100000001c8a78a47a63cc8378ee1abb29b00fee57f54700008907b2cc212fd1077f46229010000006a47304402207ca8de8bbc656f7df9f99790b61799e7745d12d354a1f346a20fbc32cc76e045022005e5536c5c8997670566d693f725072cec9db8d24aa048caad1108e0400bfcd2412103b1fa158185120c1266ff328964446cdb5816a37b2668411e847b4d2395a6a265ffffffff02273c0000000000001976a91410bdcba3041b5e5517a58f2e405293c14a7c70c188ac43c40e00000000001976a914256b0efdfc907d12125c4fbb1754b38e7c8b1a1788ac00000000');
-       expect(/transaction already in block chain/.test(result.message.message)).to.eql(true);
+describe('#sendRawTx', () => {
+   it('should fail to send', async () => {
+
+      try {
+         await index.instance(options).sendRawTx('0100000001c8a78a47a63cc8378ee1abb29b00fee57f54700008907b2cc212fd1077f46229010000006a47304402207ca8de8bbc656f7df9f99790b61799e7745d12d354a1f346a20fbc32cc76e045022005e5536c5c8997670566d693f725072cec9db8d24aa048caad1108e0400bfcd2412103b1fa158185120c1266ff328964446cdb5816a37b2668411e847b4d2395a6a265ffffffff02273c0000000000001976a91410bdcba3041b5e5517a58f2e405293c14a7c70c188ac43c40e00000000001976a914256b0efdfc907d12125c4fbb1754b38e7c8b1a1788ac00000000');
+      } catch (ex) {
+         expect(/transaction already in block chain/.test(ex.message)).to.eql(true);
+      }
    });
 });

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const api_client_1 = require("./api-client");
 const defaultOptions = {
-    api_url: 'https://api.bitindex.network',
+    api_url: 'https://api.mattercloud.net',
     network: 'main',
     version_path: 'api/v3',
     api_key: '' // Set to your API key
@@ -23,13 +23,13 @@ class MatterCloud {
         const apiClient = new api_client_1.APIClient(this.options);
         return apiClient.address_getBalanceBatch(addrs, callback);
     }
-    getTx(txid, callback) {
+    tx(txid, callback) {
         const apiClient = new api_client_1.APIClient(this.options);
         return apiClient.tx_getTransaction(txid, callback);
     }
     sendRawTx(rawtx, callback) {
         const apiClient = new api_client_1.APIClient(this.options);
-        return apiClient.sendTx(rawtx, callback);
+        return apiClient.sendRawTx(rawtx, callback);
     }
 }
 exports.default = MatterCloud;

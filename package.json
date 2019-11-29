@@ -1,6 +1,6 @@
 {
-  "name": "mattercloud",
-  "version": "1.0.0",
+  "name": "mattercloudjs",
+  "version": "1.0.1",
   "description": "MatterCloud Javascript SDK - https://www.mattercloud.net",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MatterCloud/mattercloud-sdk.git"
+    "url": "git+https://github.com/MatterCloud/mattercloudjs.git"
   },
   "author": "MatterCloud - Matter Web Services Inc.",
   "license": "Open BSV",
   "bugs": {
-    "url": "https://github.com/MatterCloud/mattercloud-sdk/issues"
+    "url": "https://github.com/MatterCloud/mattercloudjs/issues"
   },
-  "homepage": "https://github.com/MatterCloud/mattercloud-sdk#readme",
+  "homepage": "https://github.com/MatterCloud/mattercloudjs#readme",
   "devDependencies": {
     "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",

@@ -3,18 +3,35 @@ var expect = require('chai').expect;
 var index = require('../dist/index.js');
 
 const options = {
-   api_key: '',
-   api_url: 'https://api.mattercloud.net',
+    api_key: '',
+    api_url: 'https://api.mattercloud.net',
 };
 
-describe('#getBalance', () => {
+describe('#balance', () => {
     it('should fail with invalid address', async () => {
-        var result = await index.instance(options).balance('address');
-        expect(result).to.eql({
-            code: 422,
-            message: 'Request failed with status code 422'
-        });
+        try {
+            await index.instance(options).balance('address');
+        } catch (ex) {
+            expect(ex).to.eql({
+                code: 422,
+                message: 'Request failed with status code 422'
+            });
+        }
     });
+
+    it('should fail with invalid address (callback)', (done) => {
+
+        index.instance(options).balance('address', async (data, err) => {
+            expect(err).to.eql({
+                code: 422,
+                message: 'Request failed with status code 422'
+            });
+            expect(data).to.eql(null);
+            done();
+        });
+
+    });
+
     it('should succeed with getting balance', async () => {
         var result = await index.instance(options).balance('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
         expect(result).to.eql(
@@ -24,6 +41,20 @@ describe('#getBalance', () => {
                "unconfirmed": 0,
             }
         );
+    });
+
+    it('should succeed with getting balance (callback)', (done) => {
+         index.instance(options).balance('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', async (data, err) => {
+            expect(data).to.eql(
+                {
+                "address": "12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX",
+                "confirmed":30055,
+                "unconfirmed": 0,
+                }
+            );
+            expect(err).to.eql(undefined);
+            done();
+        });
     });
 
     it('should succeed with getting balance batch', async () => {
@@ -45,14 +76,37 @@ describe('#getBalance', () => {
      });
 });
 
+describe('#balanceBatch', () => {
 
-describe('#getUtxos test', () => {
+    it('should succeed with getting balance batch', async () => {
+        var result = await index.instance(options).balanceBatch(['12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', '1XeMYaLJX6rhXcRe2XtGh6hgstgXwZ5SD']);
+        expect(result).to.eql(
+            [
+                {
+                    "address": "12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX",
+                    "confirmed":30055,
+                    "unconfirmed": 0,
+                },
+                {
+                    "address": "1XeMYaLJX6rhXcRe2XtGh6hgstgXwZ5SD",
+                    "confirmed":15411,
+                    "unconfirmed": 0,
+                }
+            ]
+        );
+     });
+});
+
+describe('#utxos', () => {
     it('should fail with invalid address', async () => {
-        var result = await index.instance(options).utxos('address');
-        expect(result).to.eql({
-            code: 422,
-            message: 'Request failed with status code 422'
-        });
+        try {
+            await index.instance(options).utxos('address');
+        } catch (ex) {
+            expect(ex).to.eql({
+                code: 422,
+                message: 'Request failed with status code 422'
+            });
+        }
     });
 
     it('should succeed with getting utxos with options', async () => {
@@ -202,13 +256,17 @@ describe('#getUtxos test', () => {
     });
 });
 
-describe('#getUtxos batch', () => {
+describe('#utxos batch', () => {
     it('should fail with invalid address', async () => {
-        var result = await index.instance(options).utxos(['asdfsf', '1XeMYaLJX6rhXcRe2XtGh6hgstgXwZ5SD']);
-        expect(result).to.eql({
-            code: 422,
-            message: 'Request failed with status code 422'
-        });
+        try {
+            await index.instance(options).utxos(['asdfsf', '1XeMYaLJX6rhXcRe2XtGh6hgstgXwZ5SD']);
+        } catch (ex) {
+            expect(ex).to.eql({
+                code: 422,
+                message: 'Request failed with status code 422'
+            });
+        }
+
     });
 
     it('should succeed with getting utxos', async () => {

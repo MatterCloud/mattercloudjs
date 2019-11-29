@@ -1,7 +1,7 @@
 import { APIClient } from './api-client';
 
 const defaultOptions: any = {
-  api_url: 'https://api.bitindex.network',
+  api_url: 'https://api.mattercloud.net',
   network: 'main',          // 'main', test', or 'stn'. 'main' and 'test' supported
   version_path: 'api/v3',   // Do not change
   api_key: ''               // Set to your API key
@@ -31,14 +31,14 @@ export default class MatterCloud {
     return apiClient.address_getBalanceBatch(addrs, callback);
   }
 
-  getTx(txid: string, callback?: Function): Promise<any> {
+  tx(txid: string, callback?: Function): Promise<any> {
     const apiClient = new APIClient(this.options);
     return apiClient.tx_getTransaction(txid, callback);
   }
 
   sendRawTx(rawtx: string, callback?: Function): Promise<any> {
     const apiClient = new APIClient(this.options);
-    return apiClient.sendTx(rawtx, callback);
+    return apiClient.sendRawTx(rawtx, callback);
   }
 }
 
