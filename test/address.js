@@ -12,20 +12,14 @@ describe('#balance', () => {
         try {
             await index.instance(options).balance('address');
         } catch (ex) {
-            expect(ex).to.eql({
-                code: 422,
-                message: 'Request failed with status code 422'
-            });
+            expect(ex).to.eql({ code: 422, message: 'address invalid' });
         }
     });
 
     it('should fail with invalid address (callback)', (done) => {
 
         index.instance(options).balance('address', async (data, err) => {
-            expect(err).to.eql({
-                code: 422,
-                message: 'Request failed with status code 422'
-            });
+            expect(err).to.eql({ code: 422, message: 'address invalid' });
             expect(data).to.eql(null);
             done();
         });
@@ -102,10 +96,7 @@ describe('#utxos', () => {
         try {
             await index.instance(options).utxos('address');
         } catch (ex) {
-            expect(ex).to.eql({
-                code: 422,
-                message: 'Request failed with status code 422'
-            });
+            expect(ex).to.eql({ code: 422, message: 'address invalid' });
         }
     });
 
@@ -261,10 +252,7 @@ describe('#utxos batch', () => {
         try {
             await index.instance(options).utxos(['asdfsf', '1XeMYaLJX6rhXcRe2XtGh6hgstgXwZ5SD']);
         } catch (ex) {
-            expect(ex).to.eql({
-                code: 422,
-                message: 'Request failed with status code 422'
-            });
+            expect(ex).to.eql({ code: 422, message: 'address invalid' });
         }
 
     });
@@ -321,3 +309,102 @@ describe('#utxos batch', () => {
         );
     });
 });
+
+
+describe('#history', () => {
+
+    it('should succeed with getting history', async () => {
+        var result = await index.instance(options).history('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
+        expect(result).to.eql(
+            {
+                from: 0,
+                to: 20,
+                results: [
+                    {
+                        "height": 576168,
+                        "txid": "5e3014372338f079f005eedc85359e4d96b8440e7dbeb8c35c4182e0c19a1a12"
+                    },
+                    {
+                        "height": 576025,
+                        "txid": "bdf6f49776faaa4790af3e41b8b474a7d0d47df540f8d71c3579dc0addd64c45"
+                    },
+                    {
+                        "height": 576025,
+                        "txid": "d834682a5d29646427e5627d38c10224036535fa7e3066ae2f7a163a96550e27"
+                    },
+                    {
+                        "height": 576025,
+                        "txid": "96b3dc5941ce97046d4af6e7a69f4b38c48f05ef071c2a33f88807b89ab51da6"
+                    }
+                ]
+            }
+        );
+     });
+
+     it('should succeed with getting history with options', async () => {
+        var args = {
+            from: 1,
+            to: 2
+        };
+        var result = await index.instance(options).history('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', args);
+        expect(result).to.eql(
+            {
+                from: 1,
+                to: 2,
+                results: [
+                    {
+                    "txid": "bdf6f49776faaa4790af3e41b8b474a7d0d47df540f8d71c3579dc0addd64c45",
+                    "height": 576025
+                    }
+                ]
+            }
+        );
+     });
+
+     it('should fail with invalid range', async () => {
+        var args = {
+            from: 0,
+            to: 21
+        };
+        try {
+            await index.instance(options).history('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', args);
+        } catch (ex) {
+            expect(ex).to.eql({ code: 422, message: 'params invalid' });
+        }
+     });
+
+});
+describe('#historyBatch', () => {
+     it('should succeed with getting history batch', async () => {
+        var result = await index.instance(options).historyBatch(['12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', '1XeMYaLJX6rhXcRe2XtGh6hgstgXwZ5SD']);
+        expect(result).to.eql(
+            {
+                "from": 0,
+                "to": 20,
+                "results": [
+                    {
+                        "txid": "fcd2e37b0c9472fd81bc475e98193caa61581f3ded6c50e843d9c2e1ee5fdef6",
+                        "height": 576171
+                    },
+                    {
+                        "txid": "5e3014372338f079f005eedc85359e4d96b8440e7dbeb8c35c4182e0c19a1a12",
+                        "height": 576168
+                    },
+                    {
+                        "txid": "bdf6f49776faaa4790af3e41b8b474a7d0d47df540f8d71c3579dc0addd64c45",
+                        "height": 576025
+                    },
+                    {
+                        "txid": "d834682a5d29646427e5627d38c10224036535fa7e3066ae2f7a163a96550e27",
+                        "height": 576025
+                    },
+                    {
+                        "txid": "96b3dc5941ce97046d4af6e7a69f4b38c48f05ef071c2a33f88807b89ab51da6",
+                        "height": 576025
+                    }
+                ]
+            }
+        );
+     });
+});
+

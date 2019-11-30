@@ -72,11 +72,10 @@ export class APIClient {
         });
     }
     private formatErrorResponse(r: any): any {
-        let getMessage = r.data && r.data.message ? r.data.message : undefined;
-        getMessage = getMessage || r.message ? r.message : r.toString()
+        let getMessage = r && r.response && r.response.data ? r.response.data : r.toString();
         return {
             code: r.response ? r.response.status : -1,
-            message: getMessage
+            message: getMessage.message ? getMessage.message : '',
         };
     }
     
@@ -89,6 +88,30 @@ export class APIClient {
                 }), callback)
             }
             axios.get(this.fullUrl + `/tx/${txid}`,
+                {
+                    headers: this.getHeaders()
+                }
+            ).then((response) => {
+                return this.resolveOrCallback(resolve, response.data, callback);
+            }).catch((ex) => {
+                return this.rejectOrCallback(reject, this.formatErrorResponse(ex), callback)
+            })
+        });
+    }
+
+    tx_getTransactionsBatch(txids: string[], callback?: Function): Promise<any> {
+        return new Promise((resolve, reject) => {
+            if (!this.isStringOrNonEmptyArray(txids)) {
+                return this.rejectOrCallback(reject, this.formatErrorResponse({
+                    code: 422,
+                    message: 'txid required'
+                }), callback)
+            }
+            let payload: any = {
+                txids: Array.isArray(txids) ? txids.join(',') : txids
+            };
+            axios.post(this.fullUrl + `/tx`,
+                payload,
                 {
                     headers: this.getHeaders()
                 }
@@ -120,6 +143,34 @@ export class APIClient {
         });
     }
 
+    address_getHistory(addr: any, options?: {from?: number, to?: number }, callback?: Function): Promise<any> {
+        return new Promise((resolve, reject) => {
+            if (!this.isStringOrNonEmptyArray(addr)) {
+                return this.rejectOrCallback(reject, this.formatErrorResponse({
+                    code: 422,
+                    message: 'address required'
+                }), callback)
+            }
+            let args = '';
+            if (options && options.from) {
+                args += `from=${options.from}&`;
+            }
+            if (options && options.to) {
+                args += `to=${options.to}&`;
+            }
+            const url = this.fullUrl + `/address/${addr}/history?${args}`;
+            axios.get(url,
+                {
+                    headers: this.getHeaders()
+                }
+            ).then((response) => {
+                return this.resolveOrCallback(resolve, response.data, callback);
+            }).catch((ex) => {
+                return this.rejectOrCallback(reject, this.formatErrorResponse(ex), callback)
+            })
+        });
+    }
+
     address_getBalanceBatch(addrs: string[], callback?: Function): Promise<any> {
         return new Promise((resolve, reject) => {
             if (!this.isStringOrNonEmptyArray(addrs)) {
@@ -138,9 +189,46 @@ export class APIClient {
             let payload: any = {
                 addrs: Array.isArray(addrsNew) ? addrsNew.join(',') : addrsNew
             };
-
-
             axios.post(this.fullUrl + `/address/balance`,
+                payload,
+                {
+                    headers: this.getHeaders()
+                }
+            ).then((response) => {
+                return this.resolveOrCallback(resolve, response.data, callback);
+            }).catch((ex) => {
+                return this.rejectOrCallback(reject, this.formatErrorResponse(ex), callback)
+            })
+        });
+    }
+
+    address_getHistoryBatch(addrs: string[], options?: {from?: number, to?: number }, callback?: Function): Promise<any> {
+        return new Promise((resolve, reject) => {
+            if (!this.isStringOrNonEmptyArray(addrs)) {
+                return this.rejectOrCallback(reject, this.formatErrorResponse({
+                    code: 422,
+                    message: 'address required'
+                }), callback)
+            }
+            let addrsNew: string[] = [];
+            if (!Array.isArray(addrs)) {
+                addrsNew.push(addrs);
+            } else {
+                addrsNew = addrs;
+            }
+
+            let payload: any = {
+                addrs: Array.isArray(addrsNew) ? addrsNew.join(',') : addrsNew
+            };
+
+            if (options && options.from) {
+                payload.from = options.from;
+            }
+            if (options && options.from) {
+                payload.to = options.to;
+            }
+
+            axios.post(this.fullUrl + `/address/history`,
                 payload,
                 {
                     headers: this.getHeaders()

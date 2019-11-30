@@ -18,6 +18,9 @@ npm install mattercloudjs --save
 ```
 
 **Include**
+
+[Generate an API key](https://www.mattercloud.net/#get-api-key)
+
 ```javascript
 // NodeJS
 var options = {

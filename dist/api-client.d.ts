@@ -28,8 +28,17 @@ export declare class APIClient {
     private rejectOrCallback;
     private formatErrorResponse;
     tx_getTransaction(txid: string, callback?: Function): Promise<any>;
+    tx_getTransactionsBatch(txids: string[], callback?: Function): Promise<any>;
     address_getBalance(addr: any, callback?: Function): Promise<any>;
+    address_getHistory(addr: any, options?: {
+        from?: number;
+        to?: number;
+    }, callback?: Function): Promise<any>;
     address_getBalanceBatch(addrs: string[], callback?: Function): Promise<any>;
+    address_getHistoryBatch(addrs: string[], options?: {
+        from?: number;
+        to?: number;
+    }, callback?: Function): Promise<any>;
     private isStringOrNonEmptyArray;
     addresses_getUtxos(args: {
         addrs: any;

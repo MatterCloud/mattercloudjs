@@ -11,7 +11,16 @@ export declare class MatterCloud {
     }, callback?: Function): Promise<any>;
     balance(addr: string, callback?: Function): Promise<any>;
     balanceBatch(addrs: string[], callback?: Function): Promise<any>;
+    history(addr: string, args?: {
+        from?: number;
+        to?: number;
+    }, callback?: Function): Promise<any>;
+    historyBatch(addrs: string[], args?: {
+        from?: number;
+        to?: number;
+    }, callback?: Function): Promise<any>;
     tx(txid: string, callback?: Function): Promise<any>;
+    txBatch(txids: string[], callback?: Function): Promise<any>;
     sendRawTx(rawtx: string, callback?: Function): Promise<any>;
     static instance(newOptions?: any): MatterCloud;
 }

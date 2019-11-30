@@ -29,9 +29,21 @@ class MatterCloud {
         const apiClient = new api_client_1.APIClient(this.options);
         return apiClient.address_getBalanceBatch(addrs, callback);
     }
+    history(addr, args, callback) {
+        const apiClient = new api_client_1.APIClient(this.options);
+        return apiClient.address_getHistory(addr, args, callback);
+    }
+    historyBatch(addrs, args, callback) {
+        const apiClient = new api_client_1.APIClient(this.options);
+        return apiClient.address_getHistoryBatch(addrs, args, callback);
+    }
     tx(txid, callback) {
         const apiClient = new api_client_1.APIClient(this.options);
         return apiClient.tx_getTransaction(txid, callback);
+    }
+    txBatch(txids, callback) {
+        const apiClient = new api_client_1.APIClient(this.options);
+        return apiClient.tx_getTransactionsBatch(txids, callback);
     }
     sendRawTx(rawtx, callback) {
         const apiClient = new api_client_1.APIClient(this.options);

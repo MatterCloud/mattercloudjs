@@ -39,9 +39,24 @@ export class MatterCloud {
     return apiClient.address_getBalanceBatch(addrs, callback);
   }
 
+  history(addr: string, args?: {from?: number, to?: number }, callback?: Function): Promise<any> {
+    const apiClient = new APIClient(this.options);
+    return apiClient.address_getHistory(addr, args, callback);
+  }
+
+  historyBatch(addrs: string[], args?: {from?: number, to?: number }, callback?: Function): Promise<any> {
+    const apiClient = new APIClient(this.options);
+    return apiClient.address_getHistoryBatch(addrs, args, callback);
+  }
+
   tx(txid: string, callback?: Function): Promise<any> {
     const apiClient = new APIClient(this.options);
     return apiClient.tx_getTransaction(txid, callback);
+  }
+
+  txBatch(txids: string[], callback?: Function): Promise<any> {
+    const apiClient = new APIClient(this.options);
+    return apiClient.tx_getTransactionsBatch(txids, callback);
   }
 
   sendRawTx(rawtx: string, callback?: Function): Promise<any> {
