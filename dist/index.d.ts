@@ -3,24 +3,24 @@ export declare class MatterCloud {
     constructor(providedOptions?: any);
     setApiKey(key: string): void;
     setOptions(newOptions: any): void;
-    utxos(addrs: string, args: {
+    getUtxos(addrs: string, args: {
         offset?: number;
         limit?: number;
         afterHeight?: number;
         sort?: string;
     }, callback?: Function): Promise<any>;
-    balance(addr: string, callback?: Function): Promise<any>;
-    balanceBatch(addrs: string[], callback?: Function): Promise<any>;
-    history(addr: string, args?: {
+    getBalance(addr: string, callback?: Function): Promise<any>;
+    getBalanceBatch(addrs: string[], callback?: Function): Promise<any>;
+    getHistory(addr: string, args?: {
         from?: number;
         to?: number;
     }, callback?: Function): Promise<any>;
-    historyBatch(addrs: string[], args?: {
+    getHistoryBatch(addrs: string[], args?: {
         from?: number;
         to?: number;
     }, callback?: Function): Promise<any>;
-    tx(txid: string, callback?: Function): Promise<any>;
-    txBatch(txids: string[], callback?: Function): Promise<any>;
+    getTx(txid: string, callback?: Function): Promise<any>;
+    getTxBatch(txids: string[], callback?: Function): Promise<any>;
     sendRawTx(rawtx: string, callback?: Function): Promise<any>;
     static instance(newOptions?: any): MatterCloud;
 }

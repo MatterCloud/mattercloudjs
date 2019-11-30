@@ -61,7 +61,7 @@ gulp.task("build", ['copy-html'], function () {
   })
   .plugin(tsify)
   .bundle()
-  .pipe(source('mattercloud.min.js'))
+  .pipe(source('mattercloud.js'))
   .pipe(buffer())
   .pipe(uglify())
   .pipe(header(banner, { pkg : pkg } ))

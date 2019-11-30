@@ -17,31 +17,31 @@ class MatterCloud {
     setOptions(newOptions) {
         this.options = Object.assign({}, this.options, newOptions);
     }
-    utxos(addrs, args, callback) {
+    getUtxos(addrs, args, callback) {
         const apiClient = new api_client_1.APIClient(this.options);
         return apiClient.addresses_getUtxos(Object.assign({ addrs }, args), callback);
     }
-    balance(addr, callback) {
+    getBalance(addr, callback) {
         const apiClient = new api_client_1.APIClient(this.options);
         return apiClient.address_getBalance(addr, callback);
     }
-    balanceBatch(addrs, callback) {
+    getBalanceBatch(addrs, callback) {
         const apiClient = new api_client_1.APIClient(this.options);
         return apiClient.address_getBalanceBatch(addrs, callback);
     }
-    history(addr, args, callback) {
+    getHistory(addr, args, callback) {
         const apiClient = new api_client_1.APIClient(this.options);
         return apiClient.address_getHistory(addr, args, callback);
     }
-    historyBatch(addrs, args, callback) {
+    getHistoryBatch(addrs, args, callback) {
         const apiClient = new api_client_1.APIClient(this.options);
         return apiClient.address_getHistoryBatch(addrs, args, callback);
     }
-    tx(txid, callback) {
+    getTx(txid, callback) {
         const apiClient = new api_client_1.APIClient(this.options);
         return apiClient.tx_getTransaction(txid, callback);
     }
-    txBatch(txids, callback) {
+    getTxBatch(txids, callback) {
         const apiClient = new api_client_1.APIClient(this.options);
         return apiClient.tx_getTransactionsBatch(txids, callback);
     }

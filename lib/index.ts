@@ -21,7 +21,7 @@ export class MatterCloud {
     this.options = Object.assign({}, this.options, newOptions);
   }
 
-  utxos(addrs: string, args: { offset?: number, limit?: number, afterHeight?: number, sort?: string}, callback?: Function): Promise<any> {
+  getUtxos(addrs: string, args: { offset?: number, limit?: number, afterHeight?: number, sort?: string}, callback?: Function): Promise<any> {
     const apiClient = new APIClient(this.options);
     return apiClient.addresses_getUtxos({
       addrs,
@@ -29,32 +29,32 @@ export class MatterCloud {
     }, callback);
   }
 
-  balance(addr: string, callback?: Function): Promise<any> {
+  getBalance(addr: string, callback?: Function): Promise<any> {
     const apiClient = new APIClient(this.options);
     return apiClient.address_getBalance(addr, callback);
   }
 
-  balanceBatch(addrs: string[], callback?: Function): Promise<any> {
+  getBalanceBatch(addrs: string[], callback?: Function): Promise<any> {
     const apiClient = new APIClient(this.options);
     return apiClient.address_getBalanceBatch(addrs, callback);
   }
 
-  history(addr: string, args?: {from?: number, to?: number }, callback?: Function): Promise<any> {
+  getHistory(addr: string, args?: {from?: number, to?: number }, callback?: Function): Promise<any> {
     const apiClient = new APIClient(this.options);
     return apiClient.address_getHistory(addr, args, callback);
   }
 
-  historyBatch(addrs: string[], args?: {from?: number, to?: number }, callback?: Function): Promise<any> {
+  getHistoryBatch(addrs: string[], args?: {from?: number, to?: number }, callback?: Function): Promise<any> {
     const apiClient = new APIClient(this.options);
     return apiClient.address_getHistoryBatch(addrs, args, callback);
   }
 
-  tx(txid: string, callback?: Function): Promise<any> {
+  getTx(txid: string, callback?: Function): Promise<any> {
     const apiClient = new APIClient(this.options);
     return apiClient.tx_getTransaction(txid, callback);
   }
 
-  txBatch(txids: string[], callback?: Function): Promise<any> {
+  getTxBatch(txids: string[], callback?: Function): Promise<any> {
     const apiClient = new APIClient(this.options);
     return apiClient.tx_getTransactionsBatch(txids, callback);
   }

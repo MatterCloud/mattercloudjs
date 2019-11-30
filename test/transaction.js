@@ -10,14 +10,14 @@ const options = {
 describe('#tx', () => {
     it('should fail with invalid tx', async () => {
         try {
-            await index.instance(options).tx('tx');
+            await index.instance(options).getTx('tx');
          } catch (ex) {
                expect(ex).to.eql({ code: 404, message: '' });
          }
     });
 
     it('should succeed single', async () => {
-         var result = await index.instance(options).tx('96b3dc5941ce97046d4af6e7a69f4b38c48f05ef071c2a33f88807b89ab51da6');
+         var result = await index.instance(options).getTx('96b3dc5941ce97046d4af6e7a69f4b38c48f05ef071c2a33f88807b89ab51da6');
          delete result.confirmations;
          expect(result).to.eql(
             {
@@ -86,7 +86,7 @@ describe('#tx', () => {
     });
 
     it('should succeed batch', async () => {
-      var result = await index.instance(options).txBatch(['96b3dc5941ce97046d4af6e7a69f4b38c48f05ef071c2a33f88807b89ab51da6', '6abdf1368e1d05bcad224c1f7063d8a8deb393dc7172e5de660e3c0265c58ee7']);
+      var result = await index.instance(options).getTxBatch(['96b3dc5941ce97046d4af6e7a69f4b38c48f05ef071c2a33f88807b89ab51da6', '6abdf1368e1d05bcad224c1f7063d8a8deb393dc7172e5de660e3c0265c58ee7']);
       delete result[0].confirmations;
       delete result[1].confirmations;
       expect(result).to.eql(
@@ -225,7 +225,7 @@ describe('#tx', () => {
 
    it('should fail too large batch', async () => {
       try {
-         await index.instance(options).txBatch([
+         await index.instance(options).getTxBatch([
             '96b3dc5941ce97046d4af6e7a69f4b38c48f05ef071c2a33f88807b89ab51da6',
             '6abdf1368e1d05bcad224c1f7063d8a8deb393dc7172e5de660e3c0265c58ee7',
             '96b3dc5941ce97046d4af6e7a69f4b38c48f05ef071c2a33f88807b89ab51da6',

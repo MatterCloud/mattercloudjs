@@ -6,7 +6,7 @@
 
 ![header](header.png)
 
-[View Detailed Developer Documentation](https://developers.mattercloud.net)
+[VIEW COMPLETE DEVELOPER DOCUMENTATION AT DEVELOPERS.MATTERCLOUD.NET](https://developers.mattercloud.net)
 
 ---
 
@@ -37,7 +37,7 @@ Easily query balances, utxos, and transactions on the Bitcoin SV Blockchain.
 #### Get balance
 
 ```javascript
-var result = await mattercloud.balance('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
+var result = await mattercloud.getBalance('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
 ```
 
 GET https://api.mattercloud.net/api/v3/main/address/12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX/balance
@@ -53,7 +53,7 @@ Response:
 #### Get utxos
 
 ```javascript
-var result = await mattercloud.utxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
+var result = await mattercloud.getUtxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
 ```
 
 GET https://api.mattercloud.net/api/v3/main/address/12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX/utxo
@@ -73,43 +73,10 @@ Response:
     "scriptPubKey": "76a91410bdcba3041b5e5517a58f2e405293c14a7c70c188ac",
     "script": "76a91410bdcba3041b5e5517a58f2e405293c14a7c70c188ac",
     "outputIndex": 0
-  },
-  {
-    "address": "12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX",
-    "txid": "96b3dc5941ce97046d4af6e7a69f4b38c48f05ef071c2a33f88807b89ab51da6",
-    "vout": 1,
-    "amount": 0.00014656,
-    "satoshis": 14656,
-    "value": 14656,
-    "height": 576025,
-    "confirmations": 34873,
-    "scriptPubKey": "76a91410bdcba3041b5e5517a58f2e405293c14a7c70c188ac",
-    "script": "76a91410bdcba3041b5e5517a58f2e405293c14a7c70c188ac",
-    "outputIndex": 1
   }
 ]
-```
-#### Broadcast Transaction
-```javascript
-var result = await mattercloud.sendRawTx('0100000001c8a78a...');
-```
 
-POST https://api.mattercloud.net/api/v3/main/tx/send
-
-`Content-Type: application/json`
-
-Request Body:
-```
-{
-    "rawtx": "0942a836214..."
-}
-```
-Response:
-```
-{
-    "txid": "5e3014372338f079f005eedc85359e4d96b8440e7dbeb8c35c4182e0c19a1a12"
-}
-```
+[VIEW COMPLETE DEVELOPER DOCUMENTATION AT DEVELOPERS.MATTERCLOUD.NET](https://developers.mattercloud.net)
 
 ## Detailed Installation and Usage
 
@@ -164,7 +131,7 @@ mattercloud.utxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', function(result) {
 
 ## Detailed Documentation
 
-[Developer Documentation](https://developers.mattercloud.net)
+[VIEW COMPLETE DEVELOPER DOCUMENTATION AT DEVELOPERS.MATTERCLOUD.NET](https://developers.mattercloud.net)
 
 
 ## Build and Test

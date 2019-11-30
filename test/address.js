@@ -7,10 +7,10 @@ const options = {
     api_url: 'https://api.mattercloud.net',
 };
 
-describe('#balance', () => {
+describe('#getBalance', () => {
     it('should fail with invalid address', async () => {
         try {
-            await index.instance(options).balance('address');
+            await index.instance(options).getBalance('address');
         } catch (ex) {
             expect(ex).to.eql({ code: 422, message: 'address invalid' });
         }
@@ -18,7 +18,7 @@ describe('#balance', () => {
 
     it('should fail with invalid address (callback)', (done) => {
 
-        index.instance(options).balance('address', async (data, err) => {
+        index.instance(options).getBalance('address', async (data, err) => {
             expect(err).to.eql({ code: 422, message: 'address invalid' });
             expect(data).to.eql(null);
             done();
@@ -26,8 +26,8 @@ describe('#balance', () => {
 
     });
 
-    it('should succeed with getting balance', async () => {
-        var result = await index.instance(options).balance('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
+    it('should succeed with getting getBalance', async () => {
+        var result = await index.instance(options).getBalance('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
         expect(result).to.eql(
             {
               "address": "12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX",
@@ -37,8 +37,8 @@ describe('#balance', () => {
         );
     });
 
-    it('should succeed with getting balance (callback)', (done) => {
-         index.instance(options).balance('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', async (data, err) => {
+    it('should succeed with getting getBalance (callback)', (done) => {
+         index.instance(options).getBalance('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', async (data, err) => {
             expect(data).to.eql(
                 {
                 "address": "12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX",
@@ -51,8 +51,8 @@ describe('#balance', () => {
         });
     });
 
-    it('should succeed with getting balance batch', async () => {
-        var result = await index.instance(options).balanceBatch(['12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', '1XeMYaLJX6rhXcRe2XtGh6hgstgXwZ5SD']);
+    it('should succeed with getting getBalance batch', async () => {
+        var result = await index.instance(options).getBalanceBatch(['12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', '1XeMYaLJX6rhXcRe2XtGh6hgstgXwZ5SD']);
         expect(result).to.eql(
             [
                 {
@@ -70,10 +70,10 @@ describe('#balance', () => {
      });
 });
 
-describe('#balanceBatch', () => {
+describe('#getBalanceBatch', () => {
 
-    it('should succeed with getting balance batch', async () => {
-        var result = await index.instance(options).balanceBatch(['12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', '1XeMYaLJX6rhXcRe2XtGh6hgstgXwZ5SD']);
+    it('should succeed with getting getBalance batch', async () => {
+        var result = await index.instance(options).getBalanceBatch(['12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', '1XeMYaLJX6rhXcRe2XtGh6hgstgXwZ5SD']);
         expect(result).to.eql(
             [
                 {
@@ -91,17 +91,17 @@ describe('#balanceBatch', () => {
      });
 });
 
-describe('#utxos', () => {
+describe('#getUtxos', () => {
     it('should fail with invalid address', async () => {
         try {
-            await index.instance(options).utxos('address');
+            await index.instance(options).getUtxos('address');
         } catch (ex) {
             expect(ex).to.eql({ code: 422, message: 'address invalid' });
         }
     });
 
     it('should succeed with getting utxos with options', async () => {
-      var result = await index.instance(options).utxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', {
+      var result = await index.instance(options).getUtxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', {
          afterHeight: 576167, sort: 'value:desc'
       });
       expect(result.length).to.eql(1);
@@ -124,7 +124,7 @@ describe('#utxos', () => {
               }
           ]
       );
-      var result = await index.instance(options).utxos(['12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', '1XeMYaLJX6rhXcRe2XtGh6hgstgXwZ5SD'], {
+      var result = await index.instance(options).getUtxos(['12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', '1XeMYaLJX6rhXcRe2XtGh6hgstgXwZ5SD'], {
          afterHeight: 576167, sort: 'value:desc'
       });
       delete result[0].confirmations;
@@ -161,7 +161,7 @@ describe('#utxos', () => {
    });
 
     it('should succeed with getting utxos', async () => {
-        var result = await index.instance(options).utxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
+        var result = await index.instance(options).getUtxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
         expect(result.length).to.eql(2);
         delete result[0].confirmations;
         delete result[1].confirmations;
@@ -197,7 +197,7 @@ describe('#utxos', () => {
                 }
             ]
         );
-        var result = await index.instance(options).utxos(['12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', '1XeMYaLJX6rhXcRe2XtGh6hgstgXwZ5SD']);
+        var result = await index.instance(options).getUtxos(['12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', '1XeMYaLJX6rhXcRe2XtGh6hgstgXwZ5SD']);
         delete result[0].confirmations;
         delete result[1].confirmations;
         delete result[2].confirmations;
@@ -250,7 +250,7 @@ describe('#utxos', () => {
 describe('#utxos batch', () => {
     it('should fail with invalid address', async () => {
         try {
-            await index.instance(options).utxos(['asdfsf', '1XeMYaLJX6rhXcRe2XtGh6hgstgXwZ5SD']);
+            await index.instance(options).getUtxos(['asdfsf', '1XeMYaLJX6rhXcRe2XtGh6hgstgXwZ5SD']);
         } catch (ex) {
             expect(ex).to.eql({ code: 422, message: 'address invalid' });
         }
@@ -258,7 +258,7 @@ describe('#utxos batch', () => {
     });
 
     it('should succeed with getting utxos', async () => {
-        var result = await index.instance(options).utxos(['12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', '1XeMYaLJX6rhXcRe2XtGh6hgstgXwZ5SD']);
+        var result = await index.instance(options).getUtxos(['12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', '1XeMYaLJX6rhXcRe2XtGh6hgstgXwZ5SD']);
         expect(result.length).to.eql(3);
         delete result[0].confirmations;
         delete result[1].confirmations;
@@ -311,10 +311,10 @@ describe('#utxos batch', () => {
 });
 
 
-describe('#history', () => {
+describe('#getHistory', () => {
 
     it('should succeed with getting history', async () => {
-        var result = await index.instance(options).history('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
+        var result = await index.instance(options).getHistory('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
         expect(result).to.eql(
             {
                 from: 0,
@@ -346,7 +346,7 @@ describe('#history', () => {
             from: 1,
             to: 2
         };
-        var result = await index.instance(options).history('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', args);
+        var result = await index.instance(options).getHistory('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', args);
         expect(result).to.eql(
             {
                 from: 1,
@@ -367,16 +367,16 @@ describe('#history', () => {
             to: 21
         };
         try {
-            await index.instance(options).history('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', args);
+            await index.instance(options).getHistory('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', args);
         } catch (ex) {
             expect(ex).to.eql({ code: 422, message: 'params invalid' });
         }
      });
 
 });
-describe('#historyBatch', () => {
+describe('#getHistoryBatch', () => {
      it('should succeed with getting history batch', async () => {
-        var result = await index.instance(options).historyBatch(['12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', '1XeMYaLJX6rhXcRe2XtGh6hgstgXwZ5SD']);
+        var result = await index.instance(options).getHistoryBatch(['12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', '1XeMYaLJX6rhXcRe2XtGh6hgstgXwZ5SD']);
         expect(result).to.eql(
             {
                 "from": 0,
