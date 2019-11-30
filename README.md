@@ -6,7 +6,7 @@
 
 ![header](header.png)
 
-[VIEW COMPLETE DEVELOPER DOCUMENTATION AT DEVELOPERS.MATTERCLOUD.NET](https://developers.mattercloud.net)
+[VIEW COMPLETE DEVELOPER DOCUMENTATION](https://developers.mattercloud.net)
 
 ---
 
@@ -30,7 +30,7 @@ var mattercloud = require('mattercloudjs').instance(options);
 
 ```
 
-##  Preview Examples
+##  Preview
 
 Easily query balances, utxos, and transactions on the Bitcoin SV Blockchain.
 
@@ -75,8 +75,9 @@ Response:
     "outputIndex": 0
   }
 ]
+```
 
-[VIEW COMPLETE DEVELOPER DOCUMENTATION AT DEVELOPERS.MATTERCLOUD.NET](https://developers.mattercloud.net)
+[VIEW COMPLETE DEVELOPER DOCUMENTATION](https://developers.mattercloud.net)
 
 ## Detailed Installation and Usage
 
@@ -97,19 +98,14 @@ var mattercloud = require('mattercloudjs').instance(options);
 
 ```html
 <!-- Browser -->
-<script src="dist/mattercloud.min.js"></script>
+<script src="dist/mattercloud.js"></script>
 <script language="javascript">
     // mattercloud.setApiKey('my key');
-    var result = await mattercloud.utxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
+    var result = await mattercloud.getUtxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
     console.log('result', result);
 </script>
 ```
 See browser usage examples: https://github.com/MatterCloud/mattercloudjs/blob/master/dist/basic.html
-
-## Prerequisites
-
-- API key
-- Get an API key at [MatterCloud.net](https://www.mattercloud.net)
 
 ### Promises vs. Callback
 
@@ -120,10 +116,10 @@ Example:
 ```javascript
 
 // Await style with promises
-var result = await mattercloud.utxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
+var result = await mattercloud.getUtxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX');
 
 // Callback style
-mattercloud.utxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', function(result) {
+mattercloud.getUtxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', function(result) {
     // ...
 });
 
@@ -131,7 +127,7 @@ mattercloud.utxos('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', function(result) {
 
 ## Detailed Documentation
 
-[VIEW COMPLETE DEVELOPER DOCUMENTATION AT DEVELOPERS.MATTERCLOUD.NET](https://developers.mattercloud.net)
+[VIEW COMPLETE DEVELOPER DOCUMENTATION](https://developers.mattercloud.net)
 
 
 ## Build and Test
