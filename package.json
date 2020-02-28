@@ -21,6 +21,16 @@
   "bugs": {
     "url": "https://github.com/MatterCloud/mattercloudjs/issues"
   },
+  "keywords": [
+    "bitcoin",
+    "bsv",
+    "bitcoin-sv",
+    "metanet",
+    "blockchain",
+    "mattercloud",
+    "satoshi",
+    "satoshi-vision"
+  ],
   "homepage": "https://github.com/MatterCloud/mattercloudjs#readme",
   "devDependencies": {
     "@babel/cli": "^7.1.2",

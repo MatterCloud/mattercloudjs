@@ -12,6 +12,7 @@
 
 ## Quick Start
 
+_Small < 24KB library size_
 **Installation**
 ```sh
 npm install mattercloudjs --save
@@ -28,6 +29,8 @@ var options = {
 }
 var mattercloud = require('mattercloudjs').instance(options);
 
+// Or set API key later
+mattercloud.setApiKey("your api key");
 ```
 
 ##  Preview
