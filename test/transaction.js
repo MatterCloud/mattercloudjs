@@ -32,7 +32,6 @@ describe('#tx', () => {
                       "valueSat":15058,
                       "txid":"d834682a5d29646427e5627d38c10224036535fa7e3066ae2f7a163a96550e27",
                       "vout":1,
-                      "n":0,
                       "scriptSig":{
                          "asm":"30440220132f6d484de9d34d314aec945865af5da95f35cf4c7cc271d40bc99f8d7f12e3022051fcb2ce4461d1c6e8a778f5e4dcb27c8461d18e0652f68a7a09a98e95df5cb7[ALL|FORKID] 044e2c1e2c055e7aefc291679882382c35894a6aa6dd95644f598e506c239f9d83b1d9671c1d9673e3c2b74f07e8032343f3adc21367bd4cffae92fe31efcd598a",
                          "hex":"4730440220132f6d484de9d34d314aec945865af5da95f35cf4c7cc271d40bc99f8d7f12e3022051fcb2ce4461d1c6e8a778f5e4dcb27c8461d18e0652f68a7a09a98e95df5cb74141044e2c1e2c055e7aefc291679882382c35894a6aa6dd95644f598e506c239f9d83b1d9671c1d9673e3c2b74f07e8032343f3adc21367bd4cffae92fe31efcd598a"
@@ -46,20 +45,17 @@ describe('#tx', () => {
                    {
                       "value":0,
                       "valueSat":0,
-                      "n":0,
+                      "n": 0,
                       "scriptPubKey":{
                          "asm":"OP_RETURN 31394878696756345179427633744870515663554551797131707a5a56646f417574 1717859169 746578742f6d61726b646f776e 5554462d38 616e6f74686572",
                          "hex":"6a2231394878696756345179427633744870515663554551797131707a5a56646f41757404617364660d746578742f6d61726b646f776e055554462d3807616e6f74686572",
                          "type":"nulldata"
                       },
-                      "spentTxId":null,
-                      "spentIndex":null,
-                      "spentHeight":null
                    },
                    {
                       "value":0.00014656,
                       "valueSat":14656,
-                      "n":1,
+                      "n": 1,
                       "scriptPubKey":{
                          "asm":"OP_DUP OP_HASH160 10bdcba3041b5e5517a58f2e405293c14a7c70c1 OP_EQUALVERIFY OP_CHECKSIG",
                          "hex":"76a91410bdcba3041b5e5517a58f2e405293c14a7c70c188ac",
@@ -69,12 +65,10 @@ describe('#tx', () => {
                             "12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX"
                          ]
                       },
-                      "spentTxId":null,
-                      "spentIndex":null,
-                      "spentHeight":null
                    }
                 ],
                 "blockhash":"0000000000000000078f34d9cd3f48e4948aef4c79548ec777050e1c8953a85c",
+                "blockheight": 576025,
                 "time":1554007897,
                 "blocktime":1554007897,
                 "valueIn":0.00015058,
@@ -103,7 +97,6 @@ describe('#tx', () => {
                      "valueSat":15058,
                      "txid":"d834682a5d29646427e5627d38c10224036535fa7e3066ae2f7a163a96550e27",
                      "vout":1,
-                     "n":0,
                      "scriptSig":{
                         "asm":"30440220132f6d484de9d34d314aec945865af5da95f35cf4c7cc271d40bc99f8d7f12e3022051fcb2ce4461d1c6e8a778f5e4dcb27c8461d18e0652f68a7a09a98e95df5cb7[ALL|FORKID] 044e2c1e2c055e7aefc291679882382c35894a6aa6dd95644f598e506c239f9d83b1d9671c1d9673e3c2b74f07e8032343f3adc21367bd4cffae92fe31efcd598a",
                         "hex":"4730440220132f6d484de9d34d314aec945865af5da95f35cf4c7cc271d40bc99f8d7f12e3022051fcb2ce4461d1c6e8a778f5e4dcb27c8461d18e0652f68a7a09a98e95df5cb74141044e2c1e2c055e7aefc291679882382c35894a6aa6dd95644f598e506c239f9d83b1d9671c1d9673e3c2b74f07e8032343f3adc21367bd4cffae92fe31efcd598a"
@@ -117,20 +110,17 @@ describe('#tx', () => {
                   {
                      "value":0,
                      "valueSat":0,
-                     "n":0,
+                     "n": 0,
                      "scriptPubKey":{
                         "asm":"OP_RETURN 31394878696756345179427633744870515663554551797131707a5a56646f417574 1717859169 746578742f6d61726b646f776e 5554462d38 616e6f74686572",
                         "hex":"6a2231394878696756345179427633744870515663554551797131707a5a56646f41757404617364660d746578742f6d61726b646f776e055554462d3807616e6f74686572",
                         "type":"nulldata"
                      },
-                     "spentTxId":null,
-                     "spentIndex":null,
-                     "spentHeight":null
                   },
                   {
                      "value":0.00014656,
                      "valueSat":14656,
-                     "n":1,
+                     "n": 1,
                      "scriptPubKey":{
                         "asm":"OP_DUP OP_HASH160 10bdcba3041b5e5517a58f2e405293c14a7c70c1 OP_EQUALVERIFY OP_CHECKSIG",
                         "hex":"76a91410bdcba3041b5e5517a58f2e405293c14a7c70c188ac",
@@ -140,12 +130,10 @@ describe('#tx', () => {
                            "12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX"
                         ]
                      },
-                     "spentTxId":null,
-                     "spentIndex":null,
-                     "spentHeight":null
                   }
                ],
                "blockhash":"0000000000000000078f34d9cd3f48e4948aef4c79548ec777050e1c8953a85c",
+               "blockheight": 576025,
                "time":1554007897,
                "blocktime":1554007897,
                "valueIn":0.00015058,
@@ -165,7 +153,6 @@ describe('#tx', () => {
                    "valueSat": 2364025478,
                    "txid": "c28f0ad5dd16673b73501d4a118e4595c786f8603ba3d8dd35c56f9ac3a080cc",
                    "vout": 1,
-                   "n": 0,
                    "scriptSig": {
                      "asm": "30440220441302ba6510db36a1765970eede1e79f3bec1bf86f5e1293fc0f28252287e9d02207597f187b9c5c15bd53577288d7779f7586d711a4eb709dafdb266976870b26b[ALL|FORKID] 038574d72d96d9d352ad2da7b115d9d4cfa7d7aa3cae8e0c29b399d03192baf7c3",
                      "hex": "4730440220441302ba6510db36a1765970eede1e79f3bec1bf86f5e1293fc0f28252287e9d02207597f187b9c5c15bd53577288d7779f7586d711a4eb709dafdb266976870b26b4121038574d72d96d9d352ad2da7b115d9d4cfa7d7aa3cae8e0c29b399d03192baf7c3"
@@ -189,9 +176,6 @@ describe('#tx', () => {
                        "16fboJLLugG82GgQFNa2NMNKVaFjB6TKzG"
                      ]
                    },
-                   "spentTxId": null,
-                   "spentIndex": null,
-                   "spentHeight": null
                  },
                  {
                    "value": 23.62065251,
@@ -206,12 +190,10 @@ describe('#tx', () => {
                        "15ytM8rvCgiNRAJKZfERZGHdXy8JZqJjUB"
                      ]
                    },
-                   "spentTxId": "1dc400656f944af847c971e6199b0941206560ec5b570552379a0f50b5a3f3ed",
-                   "spentIndex": 0,
-                   "spentHeight": 611038
                  }
                ],
                "blockhash": "0000000000000000062e0ca7d73338e68284eb58175db871b125acf046501b0a",
+               "blockheight": 611037,
                "time": 1575106827,
                "blocktime": 1575106827,
                "valueIn": 23.64025478,
@@ -260,7 +242,7 @@ describe('#sendRawTx', () => {
       try {
          await index.instance(options).sendRawTx('0100000001c8a78a47a63cc8378ee1abb29b00fee57f54700008907b2cc212fd1077f46229010000006a47304402207ca8de8bbc656f7df9f99790b61799e7745d12d354a1f346a20fbc32cc76e045022005e5536c5c8997670566d693f725072cec9db8d24aa048caad1108e0400bfcd2412103b1fa158185120c1266ff328964446cdb5816a37b2668411e847b4d2395a6a265ffffffff02273c0000000000001976a91410bdcba3041b5e5517a58f2e405293c14a7c70c188ac43c40e00000000001976a914256b0efdfc907d12125c4fbb1754b38e7c8b1a1788ac00000000');
       } catch (ex) {
-         expect(/transaction already in block chain/.test(ex.message.message)).to.eql(true);
+         expect(/txn\-already\-known/.test(ex.message.message)).to.eql(true);
       }
    });
 });
