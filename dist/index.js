@@ -45,9 +45,18 @@ class MatterCloud {
         const apiClient = new api_client_1.APIClient(this.options);
         return apiClient.tx_getTransactionsBatch(txids, callback);
     }
+    // @Deprecated
     sendRawTx(rawtx, callback) {
         const apiClient = new api_client_1.APIClient(this.options);
         return apiClient.sendRawTx(rawtx, callback);
+    }
+    merchantTxBroadcast(rawtx, callback) {
+        const apiClient = new api_client_1.APIClient(this.options);
+        return apiClient.merchants_broadcastTx(rawtx, callback);
+    }
+    merchantTxStatus(rawtx, callback) {
+        const apiClient = new api_client_1.APIClient(this.options);
+        return apiClient.merchants_statusTx(rawtx, callback);
     }
     static instance(newOptions) {
         const mergedOptions = Object.assign({}, defaultOptions, newOptions);

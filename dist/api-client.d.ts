@@ -48,4 +48,6 @@ export declare class APIClient {
         sort?: string;
     }, callback?: Function): Promise<any>;
     sendRawTx(rawtx: string, callback?: Function): Promise<any>;
+    merchants_broadcastTx(rawtx: string, callback?: Function): Promise<any>;
+    merchants_statusTx(txid: string, callback?: Function): Promise<any>;
 }

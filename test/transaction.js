@@ -4,6 +4,7 @@ var index = require('../dist/index.js');
 
 const options = {
    api_key: '',
+   // api_url: 'http://localhost:3000',
    api_url: 'https://api.mattercloud.net',
 };
 
@@ -12,7 +13,7 @@ describe('#tx', () => {
         try {
             await index.instance(options).getTx('tx');
          } catch (ex) {
-               expect(ex).to.eql({ code: 404, message: '' });
+               expect(ex).to.eql({ success: false, code: 404, error: '', message: '' });
          }
     });
 
@@ -231,18 +232,8 @@ describe('#tx', () => {
             '96b3dc5941ce97046d4af6e7a69f4b38c48f05ef071c2a33f88807b89ab51da6',
          ]);
       } catch (ex) {
-         expect(ex).to.eql({ code: 422, message: 'too many requested' });
+         expect(ex).to.eql({ success: false, code: 422, error: 'too many requested' , message: 'too many requested' });
       }
    });
 });
 
-describe('#sendRawTx', () => {
-   it('should fail to send', async () => {
-
-      try {
-         await index.instance(options).sendRawTx('0100000001c8a78a47a63cc8378ee1abb29b00fee57f54700008907b2cc212fd1077f46229010000006a47304402207ca8de8bbc656f7df9f99790b61799e7745d12d354a1f346a20fbc32cc76e045022005e5536c5c8997670566d693f725072cec9db8d24aa048caad1108e0400bfcd2412103b1fa158185120c1266ff328964446cdb5816a37b2668411e847b4d2395a6a265ffffffff02273c0000000000001976a91410bdcba3041b5e5517a58f2e405293c14a7c70c188ac43c40e00000000001976a914256b0efdfc907d12125c4fbb1754b38e7c8b1a1788ac00000000');
-      } catch (ex) {
-         expect(/txn\-already\-known/.test(ex.message.message)).to.eql(true);
-      }
-   });
-});

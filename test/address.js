@@ -4,6 +4,7 @@ var index = require('../dist/index.js');
 
 const options = {
     api_key: '',
+    // api_url: 'http://localhost:3000',
     api_url: 'https://api.mattercloud.net',
 };
 
@@ -12,14 +13,14 @@ describe('#getBalance', () => {
         try {
             await index.instance(options).getBalance('address');
         } catch (ex) {
-            expect(ex).to.eql({ code: 422, message: 'address invalid' });
+            expect(ex).to.eql({ success: false, code: 422, message: 'address invalid', error: 'address invalid' });
         }
     });
 
     it('should fail with invalid address (callback)', (done) => {
 
         index.instance(options).getBalance('address', async (data, err) => {
-            expect(err).to.eql({ code: 422, message: 'address invalid' });
+            expect(err).to.eql({ success: false, code: 422, message: 'address invalid', error: 'address invalid' });
             expect(data).to.eql(null);
             done();
         });
@@ -96,7 +97,7 @@ describe('#getUtxos', () => {
         try {
             await index.instance(options).getUtxos('address');
         } catch (ex) {
-            expect(ex).to.eql({ code: 422, message: 'address invalid' });
+            expect(ex).to.eql({ success: false, code: 422, error: 'address invalid', message: 'address invalid' });
         }
     });
 
@@ -252,7 +253,7 @@ describe('#utxos batch', () => {
         try {
             await index.instance(options).getUtxos(['asdfsf', '1XeMYaLJX6rhXcRe2XtGh6hgstgXwZ5SD']);
         } catch (ex) {
-            expect(ex).to.eql({ code: 422, message: 'address invalid' });
+            expect(ex).to.eql({ success: false, code: 422, error: 'address invalid', message: 'address invalid' });
         }
 
     });
@@ -369,7 +370,7 @@ describe('#getHistory', () => {
         try {
             await index.instance(options).getHistory('12XXBHkRNrBEb7GCvAP4G8oUs5SoDREkVX', args);
         } catch (ex) {
-            expect(ex).to.eql({ code: 422, message: 'params invalid' });
+            expect(ex).to.eql({ success: false, code: 422, error: 'params invalid' , message: 'params invalid' });
         }
      });
 

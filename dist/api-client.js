@@ -63,8 +63,10 @@ class APIClient {
     formatErrorResponse(r) {
         let getMessage = r && r.response && r.response.data ? r.response.data : r.toString();
         return {
-            code: r.response ? r.response.status : -1,
+            success: getMessage.success ? getMessage.success : false,
+            code: getMessage.code ? getMessage.code : -1,
             message: getMessage.message ? getMessage.message : '',
+            error: getMessage.error ? getMessage.error : '',
         };
     }
     tx_getTransaction(txid, callback) {
@@ -254,9 +256,32 @@ class APIClient {
             });
         });
     }
+    // Deprecated, use broadcastTx
     sendRawTx(rawtx, callback) {
         return new Promise((resolve, reject) => {
             axios_1.default.post(this.fullUrl + `/tx/send`, { rawtx }, {
+                headers: this.getHeaders()
+            }).then((response) => {
+                return this.resolveOrCallback(resolve, response.data, callback);
+            }).catch((ex) => {
+                return this.rejectOrCallback(reject, this.formatErrorResponse(ex), callback);
+            });
+        });
+    }
+    merchants_broadcastTx(rawtx, callback) {
+        return new Promise((resolve, reject) => {
+            axios_1.default.post(this.fullUrl + `/merchants/tx/broadcast`, { rawtx }, {
+                headers: this.getHeaders()
+            }).then((response) => {
+                return this.resolveOrCallback(resolve, response.data, callback);
+            }).catch((ex) => {
+                return this.rejectOrCallback(reject, this.formatErrorResponse(ex), callback);
+            });
+        });
+    }
+    merchants_statusTx(txid, callback) {
+        return new Promise((resolve, reject) => {
+            axios_1.default.get(this.fullUrl + `/merchants/tx/status/${txid}`, {
                 headers: this.getHeaders()
             }).then((response) => {
                 return this.resolveOrCallback(resolve, response.data, callback);

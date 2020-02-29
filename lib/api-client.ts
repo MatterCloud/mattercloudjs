@@ -74,11 +74,13 @@ export class APIClient {
     private formatErrorResponse(r: any): any {
         let getMessage = r && r.response && r.response.data ? r.response.data : r.toString();
         return {
-            code: r.response ? r.response.status : -1,
+            success: getMessage.success ? getMessage.success : false,
+            code: getMessage.code ? getMessage.code : -1,
             message: getMessage.message ? getMessage.message : '',
+            error: getMessage.error ? getMessage.error : '',
         };
     }
-    
+
     tx_getTransaction(txid: string, callback?: Function): Promise<any> {
         return new Promise((resolve, reject) => {
             if (!txid || /^(\s*)$/.test(txid)) {
@@ -295,10 +297,39 @@ export class APIClient {
             })
         });
     }
+    // Deprecated, use broadcastTx
     sendRawTx(rawtx: string, callback?: Function): Promise<any> {
         return new Promise((resolve, reject) => {
             axios.post(this.fullUrl + `/tx/send`,
                 { rawtx },
+                {
+                    headers: this.getHeaders()
+                }
+            ).then((response) => {
+                return this.resolveOrCallback(resolve, response.data, callback);
+            }).catch((ex) => {
+                return this.rejectOrCallback(reject, this.formatErrorResponse(ex), callback)
+            })
+        });
+    }
+    merchants_broadcastTx(rawtx: string, callback?: Function): Promise<any> {
+        return new Promise((resolve, reject) => {
+            axios.post(this.fullUrl + `/merchants/tx/broadcast`,
+                { rawtx },
+                {
+                    headers: this.getHeaders()
+                }
+            ).then((response) => {
+                return this.resolveOrCallback(resolve, response.data, callback);
+            }).catch((ex) => {
+                return this.rejectOrCallback(reject, this.formatErrorResponse(ex), callback)
+            })
+        });
+    }
+
+    merchants_statusTx(txid: string, callback?: Function): Promise<any> {
+        return new Promise((resolve, reject) => {
+            axios.get(this.fullUrl + `/merchants/tx/status/${txid}`,
                 {
                     headers: this.getHeaders()
                 }

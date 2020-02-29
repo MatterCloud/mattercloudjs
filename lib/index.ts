@@ -59,9 +59,19 @@ export class MatterCloud {
     return apiClient.tx_getTransactionsBatch(txids, callback);
   }
 
+  // @Deprecated
   sendRawTx(rawtx: string, callback?: Function): Promise<any> {
     const apiClient = new APIClient(this.options);
     return apiClient.sendRawTx(rawtx, callback);
+  }
+
+  merchantTxBroadcast(rawtx: string, callback?: Function): Promise<any> {
+    const apiClient = new APIClient(this.options);
+    return apiClient.merchants_broadcastTx(rawtx, callback);
+  }
+  merchantTxStatus(rawtx: string, callback?: Function): Promise<any> {
+    const apiClient = new APIClient(this.options);
+    return apiClient.merchants_statusTx(rawtx, callback);
   }
 
   static instance(newOptions?: any): MatterCloud {

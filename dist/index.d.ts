@@ -22,6 +22,8 @@ export declare class MatterCloud {
     getTx(txid: string, callback?: Function): Promise<any>;
     getTxBatch(txids: string[], callback?: Function): Promise<any>;
     sendRawTx(rawtx: string, callback?: Function): Promise<any>;
+    merchantTxBroadcast(rawtx: string, callback?: Function): Promise<any>;
+    merchantTxStatus(rawtx: string, callback?: Function): Promise<any>;
     static instance(newOptions?: any): MatterCloud;
 }
 export declare function instance(newOptions?: any): MatterCloud;
