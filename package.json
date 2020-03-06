@@ -1,6 +1,6 @@
 {
   "name": "mattercloudjs",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "description": "MatterCloud Javascript SDK - https://www.mattercloud.net",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -40,7 +40,6 @@
     "babelify": "^10.0.0",
     "browserify": "^16.2.3",
     "browserify-shim": "^3.8.14",
-    "bsv": "^1.0.0",
     "chai": "^4.2.0",
     "gulp": "^3.9.1",
     "gulp-batch": "^1.0.5",
