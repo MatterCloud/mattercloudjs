@@ -61,7 +61,8 @@ class APIClient {
         });
     }
     formatErrorResponse(r) {
-        let getMessage = r && r.response && r.response.data ? r.response.data : r.toString();
+        // let getMessage = r && r.response && r.response.data ? r.response.data : r.toString();
+        let getMessage = r && r.response && r.response.data ? r.response.data : r;
         return {
             success: getMessage.success ? getMessage.success : false,
             code: getMessage.code ? getMessage.code : -1,
@@ -216,6 +217,59 @@ class APIClient {
             return false;
         }
         return true;
+    }
+    scripthash_getHistory(scripthash, options, callback) {
+        return new Promise((resolve, reject) => {
+            if (!this.isStringOrNonEmptyArray(scripthash)) {
+                return this.rejectOrCallback(reject, this.formatErrorResponse({
+                    code: 422,
+                    message: 'scripthash required'
+                }), callback);
+            }
+            let args = '';
+            if (options && options.from) {
+                args += `from=${options.from}&`;
+            }
+            if (options && options.to) {
+                args += `to=${options.to}&`;
+            }
+            const url = this.fullUrl + `/scripts/${scripthash}/history?${args}`;
+            axios_1.default.get(url, {
+                headers: this.getHeaders()
+            }).then((response) => {
+                return this.resolveOrCallback(resolve, response.data, callback);
+            }).catch((ex) => {
+                return this.rejectOrCallback(reject, this.formatErrorResponse(ex), callback);
+            });
+        });
+    }
+    scripthash_getUtxos(args, callback) {
+        return new Promise((resolve, reject) => {
+            if (!this.isStringOrNonEmptyArray(args.scripthash)) {
+                return this.rejectOrCallback(reject, this.formatErrorResponse({
+                    code: 422,
+                    message: 'scripthash required',
+                    error: 'scripthash required'
+                }), callback);
+            }
+            let scripthashes = [];
+            if (!Array.isArray(args.scripthash)) {
+                scripthashes.push(args.scripthash);
+            }
+            else {
+                scripthashes = args.scripthash;
+            }
+            let payload = {
+                scripthash: Array.isArray(scripthashes) ? scripthashes.join(',') : scripthashes
+            };
+            axios_1.default.post(this.fullUrl + `/scripts/utxo`, payload, {
+                headers: this.getHeaders()
+            }).then((response) => {
+                return this.resolveOrCallback(resolve, response.data, callback);
+            }).catch((ex) => {
+                return this.rejectOrCallback(reject, this.formatErrorResponse(ex), callback);
+            });
+        });
     }
     addresses_getUtxos(args, callback) {
         return new Promise((resolve, reject) => {

@@ -21,6 +21,21 @@ export class MatterCloud {
     this.options = Object.assign({}, this.options, newOptions);
   }
 
+  getScriptHashUtxos(scripthash: string, args: { }, callback?: Function): Promise<any> {
+    const apiClient = new APIClient(this.options);
+    return apiClient.scripthash_getUtxos({
+      scripthash,
+      ...args
+    }, callback);
+  }
+
+  getScriptHashHistory(scripthash: string, args: { }, callback?: Function): Promise<any> {
+    const apiClient = new APIClient(this.options);
+    return apiClient.scripthash_getHistory(scripthash,{
+      ...args
+    }, callback);
+  }
+
   getUtxos(addrs: string, args: { offset?: number, limit?: number, afterHeight?: number, sort?: string}, callback?: Function): Promise<any> {
     const apiClient = new APIClient(this.options);
     return apiClient.addresses_getUtxos({
@@ -28,6 +43,7 @@ export class MatterCloud {
       ...args
     }, callback);
   }
+
 
   getBalance(addr: string, callback?: Function): Promise<any> {
     const apiClient = new APIClient(this.options);

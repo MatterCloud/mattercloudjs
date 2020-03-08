@@ -17,6 +17,14 @@ class MatterCloud {
     setOptions(newOptions) {
         this.options = Object.assign({}, this.options, newOptions);
     }
+    getScriptHashUtxos(scripthash, args, callback) {
+        const apiClient = new api_client_1.APIClient(this.options);
+        return apiClient.scripthash_getUtxos(Object.assign({ scripthash }, args), callback);
+    }
+    getScriptHashHistory(scripthash, args, callback) {
+        const apiClient = new api_client_1.APIClient(this.options);
+        return apiClient.scripthash_getHistory(scripthash, Object.assign({}, args), callback);
+    }
     getUtxos(addrs, args, callback) {
         const apiClient = new api_client_1.APIClient(this.options);
         return apiClient.addresses_getUtxos(Object.assign({ addrs }, args), callback);

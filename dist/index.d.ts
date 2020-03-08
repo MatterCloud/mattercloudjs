@@ -3,6 +3,8 @@ export declare class MatterCloud {
     constructor(providedOptions?: any);
     setApiKey(key: string): void;
     setOptions(newOptions: any): void;
+    getScriptHashUtxos(scripthash: string, args: {}, callback?: Function): Promise<any>;
+    getScriptHashHistory(scripthash: string, args: {}, callback?: Function): Promise<any>;
     getUtxos(addrs: string, args: {
         offset?: number;
         limit?: number;

@@ -40,6 +40,13 @@ export declare class APIClient {
         to?: number;
     }, callback?: Function): Promise<any>;
     private isStringOrNonEmptyArray;
+    scripthash_getHistory(scripthash: any, options?: {
+        from?: number;
+        to?: number;
+    }, callback?: Function): Promise<any>;
+    scripthash_getUtxos(args: {
+        scripthash: any;
+    }, callback?: Function): Promise<any>;
     addresses_getUtxos(args: {
         addrs: any;
         offset?: number;
