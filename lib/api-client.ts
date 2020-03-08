@@ -270,7 +270,7 @@ export class APIClient {
             if (options && options.to) {
                 args += `to=${options.to}&`;
             }
-            const url = this.fullUrl + `/scripts/${scripthash}/history?${args}`;
+            const url = this.fullUrl + `/scripthash/${scripthash}/history?${args}`;
             axios.get(url,
                 {
                     headers: this.getHeaders()
@@ -302,7 +302,7 @@ export class APIClient {
             let payload: any = {
                 scripthash: Array.isArray(scripthashes) ? scripthashes.join(',') : scripthashes
             };
-            axios.post(this.fullUrl + `/scripts/utxo`,
+            axios.post(this.fullUrl + `/scripthash/utxo`,
                 payload,
                 {
                     headers: this.getHeaders()
