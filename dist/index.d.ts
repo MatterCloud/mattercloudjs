@@ -22,6 +22,7 @@ export declare class MatterCloud {
         to?: number;
     }, callback?: Function): Promise<any>;
     getTx(txid: string, callback?: Function): Promise<any>;
+    getTxRaw(txid: string, callback?: Function): Promise<any>;
     getTxBatch(txids: string[], callback?: Function): Promise<any>;
     sendRawTx(rawtx: string, callback?: Function): Promise<any>;
     merchantTxBroadcast(rawtx: string, callback?: Function): Promise<any>;

@@ -28,6 +28,7 @@ export declare class APIClient {
     private rejectOrCallback;
     private formatErrorResponse;
     tx_getTransaction(txid: string, callback?: Function): Promise<any>;
+    tx_getRawTransaction(txid: string, callback?: Function): Promise<any>;
     tx_getTransactionsBatch(txids: string[], callback?: Function): Promise<any>;
     address_getBalance(addr: any, callback?: Function): Promise<any>;
     address_getHistory(addr: any, options?: {

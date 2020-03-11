@@ -102,6 +102,29 @@ export class APIClient {
         });
     }
 
+    tx_getRawTransaction(txid: string, callback?: Function): Promise<any> {
+        return new Promise((resolve, reject) => {
+            if (!txid || /^(\s*)$/.test(txid)) {
+                return this.rejectOrCallback(reject, this.formatErrorResponse({
+                    code: 422,
+                    message: 'txid required'
+                }), callback)
+            }
+            axios.get(this.fullUrl + `/rawtx/${txid}`,
+                {
+                    headers: this.getHeaders()
+                }
+            ).then((response) => {
+                if (response.data && response.data.rawtx) {
+                    return this.resolveOrCallback(resolve, response.data.rawtx, callback);
+                }
+                return this.resolveOrCallback(resolve, response.data, callback);
+            }).catch((ex) => {
+                return this.rejectOrCallback(reject, this.formatErrorResponse(ex), callback)
+            })
+        });
+    }
+
     tx_getTransactionsBatch(txids: string[], callback?: Function): Promise<any> {
         return new Promise((resolve, reject) => {
             if (!this.isStringOrNonEmptyArray(txids)) {

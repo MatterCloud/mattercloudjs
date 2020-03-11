@@ -70,6 +70,11 @@ export class MatterCloud {
     return apiClient.tx_getTransaction(txid, callback);
   }
 
+  getTxRaw(txid: string, callback?: Function): Promise<any> {
+    const apiClient = new APIClient(this.options);
+    return apiClient.tx_getRawTransaction(txid, callback);
+  }
+
   getTxBatch(txids: string[], callback?: Function): Promise<any> {
     const apiClient = new APIClient(this.options);
     return apiClient.tx_getTransactionsBatch(txids, callback);

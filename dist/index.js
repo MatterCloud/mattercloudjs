@@ -49,6 +49,10 @@ class MatterCloud {
         const apiClient = new api_client_1.APIClient(this.options);
         return apiClient.tx_getTransaction(txid, callback);
     }
+    getTxRaw(txid, callback) {
+        const apiClient = new api_client_1.APIClient(this.options);
+        return apiClient.tx_getRawTransaction(txid, callback);
+    }
     getTxBatch(txids, callback) {
         const apiClient = new api_client_1.APIClient(this.options);
         return apiClient.tx_getTransactionsBatch(txids, callback);
