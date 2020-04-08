@@ -8,9 +8,21 @@ const privateKey = ''; // for testing only
 
 const options = {
    api_key: '',
-   // api_url: 'http://localhost:3000',
-   api_url: 'https://api.mattercloud.net',
+   api_url: 'http://localhost:3000',
+   //api_url: 'https://api.mattercloud.net',
 };
+
+describe('CURRENT_TEST #merchantTxBroadcast', () => {
+   it('should succed to send again', async () => {
+      const result = await index.instance(options).merchantTxBroadcast('0100000001394bfd979d2850fe5805f394d38ddac608f20d55db04d3aba9cb27465b9bdf86000000006a47304402205004d188511471b3e7811ddeca9bcfcd1efe7080719d0e99c6807b8d16cefda6022043d13337f3dc9f59e08b00315a37d7b0dc522440b358b5d8a187d2e6e5d5f8d0412102288596fa8af85d0a8b988049d1563596fbdf546407fdd814a23ed4d0a9fe9a20ffffffff025f120000000000001976a914a968c5d8f0b26f24089e587f2b46101968e4196888ac40140000000000001976a914acc4348a20483fd1f44b0ba54827f016edf3d29588ac00000000');
+      expect(result).to.eql({
+         success: true,
+         result: {
+            "txid": "5205318c1ec8926ba31ab6358c5ae7a08347d13b5c5c87e9a6fe3349f112491c"
+         }
+      });
+   });
+});
 
 describe('#merchantTxBroadcast', () => {
    it('should succed to send', async () => {

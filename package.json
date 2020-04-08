@@ -10,6 +10,7 @@
     "test_address": "mocha --reporter spec --grep address",
     "test_block": "mocha --reporter spec --grep block",
     "test_tx": "mocha --reporter spec --grep transaction",
+    "test_curr": "mocha --reporter spec --grep CURRENT_TEST",
     "prepare": "npm run build"
   },
   "repository": {
