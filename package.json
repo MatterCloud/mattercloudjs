@@ -11,6 +11,7 @@
     "test_block": "mocha --reporter spec --grep block",
     "test_tx": "mocha --reporter spec --grep transaction",
     "test_curr": "mocha --reporter spec --grep CURRENT_TEST",
+    "test_merchants": "mocha --reporter spec --grep merchants",
     "prepare": "npm run build"
   },
   "repository": {
