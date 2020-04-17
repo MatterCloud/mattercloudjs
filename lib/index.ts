@@ -2,9 +2,37 @@ import { APIClient } from './api-client';
 
 const defaultOptions: any = {
   api_url: 'https://api.mattercloud.net',
+  merchantapi_url: 'https://merchantapi.matterpool.io',
   network: 'main',          // 'main', test', or 'stn'. 'main' and 'test' supported
   version_path: 'api/v3',   // Do not change
   api_key: ''               // Set to your API key
+}
+
+export class MerchantApi {
+  options;
+  constructor(providedOptions?: any) {
+    this.options = Object.assign({}, defaultOptions, providedOptions);
+  }
+
+  submitTx(rawtx: string, callback?: Function): Promise<any> {
+    const apiClient = new APIClient(this.options);
+    return apiClient.mapi_submitTx(rawtx, callback);
+  }
+
+  getTxStatus(txid: string, callback?: Function): Promise<any> {
+    const apiClient = new APIClient(this.options);
+    return apiClient.mapi_statusTx(txid, callback);
+  }
+
+  getFeeQuote(callback?: Function): Promise<any> {
+    const apiClient = new APIClient(this.options);
+    return apiClient.mapi_feeQuote(callback);
+  }
+
+  static instance(newOptions?: any): MerchantApi {
+    const mergedOptions = Object.assign({}, defaultOptions, newOptions);
+    return new MerchantApi(mergedOptions);
+  }
 }
 
 export class MatterCloud {
@@ -81,18 +109,26 @@ export class MatterCloud {
   }
 
   // @Deprecated
+  // Use merchantapi mapi.submitTx
   sendRawTx(rawtx: string, callback?: Function): Promise<any> {
     const apiClient = new APIClient(this.options);
     return apiClient.sendRawTx(rawtx, callback);
   }
-
+  // @Deprecated
+  // Use merchantapi mapi.submitTx
   merchantTxBroadcast(rawtx: string, callback?: Function): Promise<any> {
     const apiClient = new APIClient(this.options);
     return apiClient.merchants_broadcastTx(rawtx, callback);
   }
-  merchantTxStatus(rawtx: string, callback?: Function): Promise<any> {
+  // @Deprecated
+  // Use merchantapi mapi.getTxStatus
+  merchantTxStatus(txid: string, callback?: Function): Promise<any> {
     const apiClient = new APIClient(this.options);
-    return apiClient.merchants_statusTx(rawtx, callback);
+    return apiClient.merchants_statusTx(txid, callback);
+  }
+
+  get mapi() {
+    return new MerchantApi(this.options);
   }
 
   static instance(newOptions?: any): MatterCloud {
@@ -106,9 +142,15 @@ export function instance(newOptions?: any): MatterCloud {
   return new MatterCloud(mergedOptions);
 }
 
+export function mapi(newOptions?: any): MerchantApi {
+  const mergedOptions = Object.assign({}, defaultOptions, newOptions);
+  return new MerchantApi(mergedOptions);
+}
+
 try {
   if (window) {
     window['mattercloud'] = new MatterCloud();
+    window['merchantapi'] = new MerchantApi();
   }
 }
 catch (ex) {

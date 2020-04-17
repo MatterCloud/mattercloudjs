@@ -1,5 +1,6 @@
 export interface MatterCloudApiClientOptions {
     api_url: string;
+    merchantapi_url: string;
     api_key?: string;
     network: string;
     version_path: string;
@@ -10,6 +11,7 @@ export interface MatterCloudApiClientOptions {
 export declare class APIClient {
     options: MatterCloudApiClientOptions;
     fullUrl: any;
+    minerFullUrl: any;
     constructor(options: any);
     getHeaders(): any;
     /**
@@ -58,4 +60,7 @@ export declare class APIClient {
     sendRawTx(rawtx: string, callback?: Function): Promise<any>;
     merchants_broadcastTx(rawtx: string, callback?: Function): Promise<any>;
     merchants_statusTx(txid: string, callback?: Function): Promise<any>;
+    mapi_submitTx(rawtx: string, callback?: Function): Promise<any>;
+    mapi_statusTx(txid: string, callback?: Function): Promise<any>;
+    mapi_feeQuote(callback?: Function): Promise<any>;
 }

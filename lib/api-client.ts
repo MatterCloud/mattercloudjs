@@ -2,13 +2,15 @@ import axios from 'axios';
 
 export interface MatterCloudApiClientOptions {
     api_url: string;
+    merchantapi_url: string;
     api_key?: string;
     network: string;
     version_path: string;
 }
 
 const defaultOptions: MatterCloudApiClientOptions = {
-    api_url: 'https://api.mattercloud.net', // endpoint
+    api_url: 'https://api.mattercloud.net',
+    merchantapi_url: 'https://merchantapi.matterpool.io',
     network: 'main',                        // 'test', or 'stn'
     version_path: 'api/v3',                 // Leave as is
     // api_key: 'your api key ',            // Get a key at www.mattercloud.net
@@ -19,19 +21,24 @@ const defaultOptions: MatterCloudApiClientOptions = {
 export class APIClient {
     options = defaultOptions;
     fullUrl;
+    minerFullUrl;
     constructor(options: any) {
         this.options = Object.assign({}, this.options, options);
         this.fullUrl = `${this.options.api_url}/${this.options.version_path}/${this.options.network}`;
+        this.minerFullUrl = `${this.options.merchantapi_url}/mapi`;
     }
 
     // Populate api reqest header if it's set
     getHeaders(): any {
         if (this.options.api_key && this.options.api_key !== '') {
             return {
-                api_key: this.options.api_key
+                api_key: this.options.api_key,
+                'Content-Type': 'application/json',
             };
         }
-        return {};
+        return {
+            'Content-Type': 'application/json',
+        };
     }
 
     /**
@@ -75,6 +82,7 @@ export class APIClient {
         // let getMessage = r && r.response && r.response.data ? r.response.data : r.toString();
         let getMessage = r && r.response && r.response.data ? r.response.data : r;
         return {
+            ...getMessage,
             success: getMessage.success ? getMessage.success : false,
             code: getMessage.code ? getMessage.code : -1,
             message: getMessage.message ? getMessage.message : '',
@@ -414,6 +422,48 @@ export class APIClient {
     merchants_statusTx(txid: string, callback?: Function): Promise<any> {
         return new Promise((resolve, reject) => {
             axios.get(this.fullUrl + `/merchants/tx/status/${txid}`,
+                {
+                    headers: this.getHeaders()
+                }
+            ).then((response) => {
+                return this.resolveOrCallback(resolve, response.data, callback);
+            }).catch((ex) => {
+                return this.rejectOrCallback(reject, this.formatErrorResponse(ex), callback)
+            })
+        });
+    }
+    mapi_submitTx(rawtx: string, callback?: Function): Promise<any> {
+        return new Promise((resolve, reject) => {
+            axios.post(this.minerFullUrl + `/tx`,
+                { rawtx },
+                {
+                    headers: this.getHeaders()
+                }
+            ).then((response) => {
+                return this.resolveOrCallback(resolve, response.data, callback);
+            }).catch((ex) => {
+                return this.rejectOrCallback(reject, this.formatErrorResponse(ex), callback)
+            })
+        });
+    }
+
+    mapi_statusTx(txid: string, callback?: Function): Promise<any> {
+        return new Promise((resolve, reject) => {
+            axios.get(this.minerFullUrl + `/tx/${txid}`,
+                {
+                    headers: this.getHeaders()
+                }
+            ).then((response) => {
+                return this.resolveOrCallback(resolve, response.data, callback);
+            }).catch((ex) => {
+                return this.rejectOrCallback(reject, this.formatErrorResponse(ex), callback)
+            })
+        });
+    }
+
+    mapi_feeQuote(callback?: Function): Promise<any> {
+        return new Promise((resolve, reject) => {
+            axios.get(this.minerFullUrl + `/feeQuote`,
                 {
                     headers: this.getHeaders()
                 }

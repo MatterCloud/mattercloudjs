@@ -1,3 +1,11 @@
+export declare class MerchantApi {
+    options: any;
+    constructor(providedOptions?: any);
+    submitTx(rawtx: string, callback?: Function): Promise<any>;
+    getTxStatus(txid: string, callback?: Function): Promise<any>;
+    getFeeQuote(callback?: Function): Promise<any>;
+    static instance(newOptions?: any): MerchantApi;
+}
 export declare class MatterCloud {
     options: any;
     constructor(providedOptions?: any);
@@ -26,7 +34,9 @@ export declare class MatterCloud {
     getTxBatch(txids: string[], callback?: Function): Promise<any>;
     sendRawTx(rawtx: string, callback?: Function): Promise<any>;
     merchantTxBroadcast(rawtx: string, callback?: Function): Promise<any>;
-    merchantTxStatus(rawtx: string, callback?: Function): Promise<any>;
+    merchantTxStatus(txid: string, callback?: Function): Promise<any>;
+    get mapi(): MerchantApi;
     static instance(newOptions?: any): MatterCloud;
 }
 export declare function instance(newOptions?: any): MatterCloud;
+export declare function mapi(newOptions?: any): MerchantApi;

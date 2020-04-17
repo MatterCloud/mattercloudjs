@@ -1,6 +1,6 @@
 {
   "name": "mattercloudjs",
-  "version": "1.0.13",
+  "version": "1.1.0",
   "description": "MatterCloud Javascript SDK - https://www.mattercloud.net",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,10 +8,13 @@
     "build": "tsc && gulp build",
     "test": "mocha --reporter spec",
     "test_address": "mocha --reporter spec --grep address",
-    "test_block": "mocha --reporter spec --grep block",
     "test_tx": "mocha --reporter spec --grep transaction",
     "test_curr": "mocha --reporter spec --grep CURRENT_TEST",
     "test_merchants": "mocha --reporter spec --grep merchants",
+    "test_sse": "mocha --reporter spec --grep sse",
+    "test_mapi": "mocha --reporter spec --grep mapi",
+    "test_block": "mocha --reporter spec --grep block",
+    "test_current": "mocha --reporter spec --grep current",
     "prepare": "npm run build"
   },
   "repository": {
@@ -61,6 +64,7 @@
     "gulp-uglify": "^3.0.2",
     "gulp-uglify-es": "^1.0.4",
     "gulp-watch": "^5.0.1",
+    "minercraft": "0.0.2",
     "mocha": "^5.2.0",
     "streamqueue": "^1.1.2",
     "tsify": "^4.0.1",
@@ -69,7 +73,8 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
-    "axios": "^0.18.0"
+    "axios": "^0.18.0",
+    "eventsource": "^1.0.7"
   },
   "files": [
     "dist/*"

@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = require("axios");
 const defaultOptions = {
     api_url: 'https://api.mattercloud.net',
+    merchantapi_url: 'https://merchantapi.matterpool.io',
     network: 'main',
     version_path: 'api/v3',
 };
@@ -14,15 +15,19 @@ class APIClient {
         this.options = defaultOptions;
         this.options = Object.assign({}, this.options, options);
         this.fullUrl = `${this.options.api_url}/${this.options.version_path}/${this.options.network}`;
+        this.minerFullUrl = `${this.options.merchantapi_url}/mapi`;
     }
     // Populate api reqest header if it's set
     getHeaders() {
         if (this.options.api_key && this.options.api_key !== '') {
             return {
-                api_key: this.options.api_key
+                api_key: this.options.api_key,
+                'Content-Type': 'application/json',
             };
         }
-        return {};
+        return {
+            'Content-Type': 'application/json',
+        };
     }
     /**
      * Resolve a promise and/or invoke a callback
@@ -63,12 +68,7 @@ class APIClient {
     formatErrorResponse(r) {
         // let getMessage = r && r.response && r.response.data ? r.response.data : r.toString();
         let getMessage = r && r.response && r.response.data ? r.response.data : r;
-        return {
-            success: getMessage.success ? getMessage.success : false,
-            code: getMessage.code ? getMessage.code : -1,
-            message: getMessage.message ? getMessage.message : '',
-            error: getMessage.error ? getMessage.error : '',
-        };
+        return Object.assign(Object.assign({}, getMessage), { success: getMessage.success ? getMessage.success : false, code: getMessage.code ? getMessage.code : -1, message: getMessage.message ? getMessage.message : '', error: getMessage.error ? getMessage.error : '' });
     }
     tx_getTransaction(txid, callback) {
         return new Promise((resolve, reject) => {
@@ -356,6 +356,39 @@ class APIClient {
     merchants_statusTx(txid, callback) {
         return new Promise((resolve, reject) => {
             axios_1.default.get(this.fullUrl + `/merchants/tx/status/${txid}`, {
+                headers: this.getHeaders()
+            }).then((response) => {
+                return this.resolveOrCallback(resolve, response.data, callback);
+            }).catch((ex) => {
+                return this.rejectOrCallback(reject, this.formatErrorResponse(ex), callback);
+            });
+        });
+    }
+    mapi_submitTx(rawtx, callback) {
+        return new Promise((resolve, reject) => {
+            axios_1.default.post(this.minerFullUrl + `/tx`, { rawtx }, {
+                headers: this.getHeaders()
+            }).then((response) => {
+                return this.resolveOrCallback(resolve, response.data, callback);
+            }).catch((ex) => {
+                return this.rejectOrCallback(reject, this.formatErrorResponse(ex), callback);
+            });
+        });
+    }
+    mapi_statusTx(txid, callback) {
+        return new Promise((resolve, reject) => {
+            axios_1.default.get(this.minerFullUrl + `/tx/${txid}`, {
+                headers: this.getHeaders()
+            }).then((response) => {
+                return this.resolveOrCallback(resolve, response.data, callback);
+            }).catch((ex) => {
+                return this.rejectOrCallback(reject, this.formatErrorResponse(ex), callback);
+            });
+        });
+    }
+    mapi_feeQuote(callback) {
+        return new Promise((resolve, reject) => {
+            axios_1.default.get(this.minerFullUrl + `/feeQuote`, {
                 headers: this.getHeaders()
             }).then((response) => {
                 return this.resolveOrCallback(resolve, response.data, callback);
