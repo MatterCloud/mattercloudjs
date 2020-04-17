@@ -1,6 +1,6 @@
 {
   "name": "mattercloudjs",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "MatterCloud Javascript SDK - https://www.mattercloud.net",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
