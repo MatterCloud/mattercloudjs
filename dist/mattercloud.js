@@ -1,6 +1,6 @@
 /**
  * mattercloudjs - MatterCloud Javascript SDK - https://www.mattercloud.net
- * @version v1.1.1
+ * @version v1.1.2
  * @link https://github.com/MatterCloud/mattercloudjs#readme
  *
  * Copyright (c) 2019 MatterCloud (Matter Web Services Inc.)

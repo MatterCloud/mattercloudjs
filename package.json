@@ -1,6 +1,6 @@
 {
   "name": "mattercloudjs",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "MatterCloud Javascript SDK - https://www.mattercloud.net",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -15,6 +15,7 @@
     "test_mapi": "mocha --reporter spec --grep mapi",
     "test_block": "mocha --reporter spec --grep block",
     "test_current": "mocha --reporter spec --grep current",
+    "test_minercraft": "mocha --reporter spec --grep minercraft",
     "prepare": "npm run build"
   },
   "repository": {

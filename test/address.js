@@ -4,8 +4,8 @@ var index = require('../dist/index.js');
 
 const options = {
     api_key: '',
-    api_url: 'http://localhost:3000',
-    // api_url: 'https://api.mattercloud.net',
+    // api_url: 'http://localhost:3000',
+    // api_url: 'http://ec2-54-201-191-162.us-west-2.compute.amazonaws.com',
 };
 
 describe('#getBalance', () => {
